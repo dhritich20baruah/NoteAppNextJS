@@ -1,4 +1,3 @@
-const mongoose = require('mongoose')
 import Todo from '../../../model/Todo'
 import dbConnect from '../../../config/dbConnect'
 
@@ -17,8 +16,6 @@ async function handler(req, res){
     }catch(error){
         console.log(error)
         res.status(500).json({error: "Not deleted"})
-    }finally{
-        mongoose.connection.close()
     }
 }
 
