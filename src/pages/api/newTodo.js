@@ -13,11 +13,10 @@ async function handler(req, res){
         var newTodo = new Todo({title, todo})
         await newTodo.save()
         console.log(newTodo)
+        res.status(200).json({status:"Todo added"})
     }catch(error){
         console.log(error)
         res.status(500).json({error: "Internal error"})
-    }finally{
-        mongoose.connection.close()
     }
 }
 
