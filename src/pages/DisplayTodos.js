@@ -1,14 +1,15 @@
 import React, {useState} from 'react'
 import Axios from 'axios'
-import dbConnect from '../../config/dbConnect'
+const mongoose = require('mongoose')
+const Todos = require('../../model/Todo')
+const key = process.env.MONGO_URI
 
 export async function getStaticProps(){
-    const mongoose = require('mongoose')
-    const Todos = require('../../model/Todo')
-
-    dbConnect()
+    await mongoose.connect(key,{
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    }).then(()=> console.log(' DB connected'))
     const todos = await Todos.find().sort({ createdAt: 'desc'})
-    console.log(todos)
     return{
         props: {
             todos: JSON.parse(JSON.stringify(todos))
